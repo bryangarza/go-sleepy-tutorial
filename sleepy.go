@@ -12,6 +12,29 @@ type Resource interface {
 	Delete(values url.Values) (int, interface{})
 }
 
+type (
+	GetNotSupported    struct{}
+	PostNotSupported   struct{}
+	PutNotSupported    struct{}
+	DeleteNotSupported struct{}
+)
+
+func (GetNotSupported) Get(values url.Values) (int, interface{}) {
+	return 405, ""
+}
+
+func (PostNotSupported) Get(values url.Values) (int, interface{}) {
+	return 405, ""
+}
+
+func (PutNotSupported) Get(values url.Values) (int, interface{}) {
+	return 405, ""
+}
+
+func (DeleteNotSupported) Get(values url.Values) (int, interface{}) {
+	return 405, ""
+}
+
 func response(rw http.ResponseWriter, request *http.Request) {
 	rw.Write([]byte("Hello world."))
 }
