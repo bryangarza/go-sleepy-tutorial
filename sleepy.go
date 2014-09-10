@@ -39,6 +39,8 @@ func response(rw http.ResponseWriter, request *http.Request) {
 	rw.Write([]byte("Hello world."))
 }
 
+type API struct{}
+
 func main() {
 	http.HandleFunc("/", response)
 	http.ListenAndServe(":3000", nil)
