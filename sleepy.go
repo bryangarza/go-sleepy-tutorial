@@ -41,6 +41,28 @@ func response(rw http.ResponseWriter, request *http.Request) {
 
 type API struct{}
 
+func (api *API) requestHandler(resource Resource) http.HandlerFunc {
+	return func(rw http.ResponseWriter, request *http.Request) {
+
+		method := request.Method // Get HTTP method (string)
+		request.ParseForm()      // Populates request.Form
+		values := request.Form
+
+		switch method {
+		case "GET":
+			code, data = resource.GET(values)
+		case "POST":
+			code, data = resource.Post(values)
+		case "PUT":
+			code, data = resource.Put(values)
+		case "DELETE":
+			code, data = resource.Delete(values)
+		}
+
+		// TODO: write response
+	}
+}
+
 func main() {
 	http.HandleFunc("/", response)
 	http.ListenAndServe(":3000", nil)
