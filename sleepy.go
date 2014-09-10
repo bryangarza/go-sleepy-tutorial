@@ -1,4 +1,4 @@
-package main
+package sleepy
 
 import (
 	"encoding/json"
